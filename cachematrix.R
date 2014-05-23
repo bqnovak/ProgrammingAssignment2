@@ -1,14 +1,13 @@
 ## bqnovak
-## Put comments here that give an overall description of what your
-## functions do
 
-## We have 2 functions.
+## We have 2 functions: makeCacheMatrix and cacheSolve.
+
 ## makeCacheMatrix sets the values for 2 the original matrix and the inverse matrix.
 ## cacheSolve calculates the inverse matrix of the matrix passed as parameter, 
 ## if the inverse matrix is already cached then it's recovered, 
 ## else the inverse matrix is calculated first.
 
-## Write a short comment describing this function
+## -------------------------------------------
 
 ## makeCacheMatrix function set matrix passed as data input, 
 ## this function defines 4 extra functions.
@@ -19,21 +18,27 @@
 ## getInverseMatrix gets the inverse matrix from inverseMatrix variable.
 
 makeCacheMatrix <- function(x = matrix()) {
+
         inverseMatrix <- NULL
+
         setMatrix <- function(y) {
                 x <<- y
                 inverseMatrix <<- NULL
         }
+
         getMatrix <- function() x
+
         setInverseMatrix <- function(iM) inverseMatrix <<- iM
+
         getInverseMatrix <- function() inverseMatrix 
+
         list(setMatrix = setMatrix, getMatrix = getMatrix,
              setInverseMatrix = setInverseMatrix,
              getInverseMatrix = getInverseMatrix)
 }
 
 
-## Write a short comment describing this function
+## -------------------------------------------
 
 ## cacheSolve recovers inverseMatrix variable from makeCacheMatrix function.
 ## cacheSolve evaluates if inverseMatrix variable is null, 
@@ -42,15 +47,20 @@ makeCacheMatrix <- function(x = matrix()) {
 ## variable of makeCacheMatrix via it's setInverseMatrix function.
 
 cacheSolve <- function(x, ...) {
+
         ## Return a matrix that is the inverse of 'x'
         inverseMatrix<- x$getInverseMatrix()
+
         if(!is.null(inverseMatrix)) {
                 message("getting cached data")
                 return(inverseMatrix)
         }
+
         matrix <- x$getMatrix()
-        inverseMatrix<- solve(matrix, ...)
-        x$setInverse(inverseMatrix)
+
 	  message("calculating inverse matrix for the very first time")
+        inverseMatrix<- solve(matrix, ...)
+
+        x$setInverse(inverseMatrix)
         inverseMatrix
 }
